@@ -28,19 +28,34 @@ const cx = classNames.bind(styles);
 
 const MENU_ITEMS = [
     {
-        icon: <FontAwesomeIcon icon={faEarthAsia}/>,
-        title: 'English'
+        icon: <FontAwesomeIcon icon={faEarthAsia} />,
+        title: 'English',
+        children: {
+            title: 'Language',
+            data: [
+                {
+                    type: 'language',
+                    code: 'en',
+                    title: 'English',
+                },
+                {
+                    type: 'language',
+                    code: 'vi',
+                    title: 'Tiếng Việt',
+                },
+            ],
+        },
     },
     {
-        icon: <FontAwesomeIcon icon={faCircleQuestion}/>,
+        icon: <FontAwesomeIcon icon={faCircleQuestion} />,
         title: 'Feedback and help',
-        to: '/feedback'
+        to: '/feedback',
     },
     {
-        icon: <FontAwesomeIcon icon={faKeyboard}/>,
+        icon: <FontAwesomeIcon icon={faKeyboard} />,
         title: 'Keyboard shotcuts',
     },
-]
+];
 
 function Header() {
     const [result, setResult] = useState([]);
@@ -49,7 +64,19 @@ function Header() {
         setTimeout(() => {
             setResult([]);
         }, 0);
-    });
+    }, []);
+
+    const handleMenuChange = (menuItem) => {
+        console.log(menuItem);
+        switch (menuItem.type) {
+            case 'language':
+                //Todo
+                break
+            default:
+                throw new Error('Error!!!!!!')
+
+        }
+    };
 
     return (
         <header className={cx('wrapper')}>
@@ -88,7 +115,7 @@ function Header() {
 
                     <Button primary>Log in</Button>
 
-                    <Menu items={MENU_ITEMS}>
+                    <Menu items={MENU_ITEMS} onChange={handleMenuChange}>
                         <button className={cx('more')}>
                             <FontAwesomeIcon icon={faEllipsisVertical} />
                         </button>
